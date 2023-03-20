@@ -40,8 +40,26 @@
 
     ];
 
-    $parking_filter = isset($_GET["parking-filter"]) ? $_GET["parking-filter"] : null;
-    var_dump($_GET);
+    $filtered_hotels = array_filter($hotels, "has_parking");
+
+    function has_parking($ass_arr) {
+
+        $parking_filter = isset($_GET["parking-filter"]) ? $_GET["parking-filter"] : 'off';
+        
+        if ($parking_filter == 'on' ) {
+
+            if ($ass_arr["parking"] == true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return true;
+        };
+   
+    };
+
+    var_dump($filtered_hotels);
 
 ?>
 
@@ -103,7 +121,7 @@
                 <tbody>
 
                     <?php
-                    foreach ($hotels as $hotel) {
+                    foreach ($filtered_hotels as $hotel) {
                         ?>
 
                         <tr>
