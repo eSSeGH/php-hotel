@@ -40,6 +40,16 @@
 
     ];
 
+    $parking_filter = isset($_GET["parking-filter"]) ? $_GET["parking-filter"] : null;
+    var_dump($_GET);
+
+    function has_parking($array) {
+
+        if ($array['parking'] == true) {
+            return $array;
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -61,11 +71,17 @@
     <!-- filter bar -->
     <header style="height: 50px; background-color: rgba(0, 0, 0, 0.95); color: coral;">
         <div class="container d-flex justify-content-center align-items-center">
+
+            <h3 class="me-4 fs-5">FILTERS:</h4>
             
-            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                <input type="radio" class="btn-check" name="btnradio" id="btnradio1"  checked>
-                <label class="btn btn-outline-primary" for="btnradio1">Parking</label>
-            </div>
+            <!-- form -->
+            <form action="./bonus.php" method="GET">
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="me-1" name="parking-filter" checked>
+                    <label for="parking-filter">Parking</label>
+                </div>
+                <button type="submit" class="btn btn-primary ms-4">Submit</button>
+            </form>
 
         </div>
     </header>
@@ -102,23 +118,30 @@
 
                             <?php
                             foreach ($hotel as $key => $value) {
-                                ?>
-                                    <td><?php  
 
-                                    if ($key == "parking") {
+                                if (array_filter($hotel, "has_parking")) {
 
-                                        if ($value == true) {
-                                            echo "yes";
-                                        } else {
-                                            echo "no";
+                                    ?>
+                                        <td><?php  
+
+                                        if ($key == "parking") {
+
+                                            if ($value == true) {
+                                                echo "yes";
+                                            } else {
+                                                echo "no";
+                                            }
+
+                                        }  else {
+                                            echo $value; 
                                         }
-
-                                    }  else {
-                                        echo $value; 
-                                    }
+                                        
+                                        ?></td>
+                                    <?php
                                     
-                                    ?></td>
-                                <?php
+                                } else {
+                                    break;
+                                }
                             }
                             ?>
 
