@@ -83,15 +83,17 @@
                         ?>
 
                         <tr>
-
-                            <?php
-                            foreach ($hotel as $key => $value) {
-                                ?>
-                                    <td><?php  echo $value; ?></td>
-                                <?php
-                            }
-                            ?>
-
+                            <td><?php echo $hotel["name"]; ?></td>
+                            <td><?php echo $hotel["description"]; ?></td>
+                            <td>
+                                <?php if ($hotel["parking"] == true) {
+                                    echo "yes";
+                                } else {
+                                    echo "no";
+                                }?>
+                            </td>
+                            <td><?php echo $hotel["vote"]; ?></td>
+                            <td><?php echo $hotel["distance_to_center"]; ?></td>
                         </tr>
 
                         <?php
