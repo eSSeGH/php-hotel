@@ -48,19 +48,11 @@
         
         if ($parking_filter == 'on' ) {
 
-            if ($ass_arr["parking"] == true) {
-                return true;
-            } else {
-                return false;
-            }
+           return $ass_arr["parking"];
         } else {
             return true;
-        };
-   
+        }
     };
-
-    var_dump($filtered_hotels);
-
 ?>
 
 <!DOCTYPE html>
@@ -88,9 +80,17 @@
             <!-- form -->
             <form action="./bonus.php" method="GET">
                 <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="me-1" name="parking-filter" checked>
-                    <label for="parking-filter">Parking</label>
+                    <input type="radio" class="me-1" name="parking-filter">
+                    <label class="me-3" for="parking-filter">Parking</label>
                 </div>
+                <select name="vote-filter" class="select" aria-label="Default select example">
+                    <option>filter by vote</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
                 <button type="submit" class="btn btn-primary ms-4">Submit</button>
             </form>
 
@@ -125,8 +125,8 @@
                         ?>
 
                         <tr>
-                            <td><?php echo $hotel["name"]; ?></td>
-                            <td><?php echo $hotel["description"]; ?></td>
+                            <td><?= $hotel["name"]; ?></td>
+                            <td><?= $hotel["description"]; ?></td>
                             <td>
                                 <?php if ($hotel["parking"] == true) {
                                     echo "yes";
@@ -134,8 +134,8 @@
                                     echo "no";
                                 }?>
                             </td>
-                            <td><?php echo $hotel["vote"]; ?></td>
-                            <td><?php echo $hotel["distance_to_center"]; ?></td>
+                            <td><?= $hotel["vote"]; ?></td>
+                            <td><?= $hotel["distance_to_center"]; ?></td>
                         </tr>
 
                         <?php
